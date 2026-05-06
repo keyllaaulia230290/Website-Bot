@@ -1,48 +1,31 @@
-// ambil semua elemen animasi
+// ================= ANIMATION SCROLL =================
 const animatedElements = document.querySelectorAll(
-    ".hero h1, .hero p, .btn, .features h2, .features p, .feature-card, .pricing-section h2, .pricing-section p, .price-card"
+    ".hero h1, .hero p, .btn, .features h2, .features p, .feature-card, .stats-section, .stat-card, .pricing-section h2, .pricing-section p, .price-card"
 );
 
-// kasih hidden di awal
 animatedElements.forEach((element) => {
     element.classList.add("hidden");
 });
 
-// observer
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
             entry.target.classList.add("show");
+        } else {
+            entry.target.classList.remove("show");
         }
     });
 }, {
     threshold: 0.15
 });
 
-// observe semua element
 animatedElements.forEach((element, index) => {
-    element.style.transitionDelay = `${index * 0.1}s`;
+    element.style.transitionDelay = `${index * 0.08}s`;
     observer.observe(element);
 });
 
-// menu button
-const menuBtn = document.getElementById("menuBtn");
 
-if (menuBtn) {
-    menuBtn.addEventListener("click", () => {
-        alert("Menu clicked!");
-    });
-}
-
-// tombol beli
-const buyButtons = document.querySelectorAll(".price-card button");
-
-buyButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        alert("Redirecting to payment...");
-    });
-});
-
+// ================= NAVBAR SCROLL EFFECT =================
 window.addEventListener("scroll", () => {
     const navbar = document.querySelector(".navbar");
 
@@ -55,17 +38,90 @@ window.addEventListener("scroll", () => {
     }
 });
 
-// dropdown menu
+
+// ================= MENU =================
 const menuBtn = document.getElementById("menuBtn");
 const dropdownMenu = document.getElementById("dropdownMenu");
 
-menuBtn.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("active");
+if (menuBtn && dropdownMenu) {
+    menuBtn.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.remove("active");
+        }
+    });
+}
+
+
+// ================= BUY BUTTON =================
+const buyButtons = document.querySelectorAll(".buy-btn");
+
+buyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const packageName = button.dataset.package;
+        const message = `Halo kakk, saya mau order bot ${packageName}`;
+        const whatsappUrl = `https://wa.me/6285885385659?text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappUrl, "_blank");
+    });
 });
 
-// close menu kalau klik luar
-document.addEventListener("click", (e) => {
-    if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-        dropdownMenu.classList.remove("active");
-    }
+
+// ================= COUNTER =================
+const counters = document.querySelectorAll(".counter");
+
+function animateCounter(counter) {
+    const target = parseInt(counter.dataset.target);
+    let current = 0;
+
+    const increment = target / 180;
+
+    const timer = setInterval(() => {
+        current += increment;
+
+        if (current < target) {
+            let displayValue = Math.floor(current);
+
+            if (counter.classList.contains("gems-counter")) {
+                counter.innerText = displayValue.toLocaleString("id-ID");
+            } else if (target >= 1000) {
+                counter.innerText = displayValue.toLocaleString("id-ID") + "B";
+            } else {
+                counter.innerText = displayValue;
+            }
+
+        } else {
+            clearInterval(timer);
+
+            if (counter.classList.contains("gems-counter")) {
+                counter.innerText = target.toLocaleString("id-ID") + "M+";
+            } else if (target >= 1000) {
+                counter.innerText = target.toLocaleString("id-ID") + "B+";
+            } else {
+                counter.innerText = target + "+";
+            }
+        }
+    }, 30);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting && !entry.target.classList.contains("counted")) {
+            const counter = entry.target.querySelector(".counter");
+
+            if (counter) {
+                animateCounter(counter);
+                entry.target.classList.add("counted");
+            }
+        }
+    });
+}, {
+    threshold: 0.3
+});
+
+document.querySelectorAll(".stat-card").forEach((card) => {
+    counterObserver.observe(card);
 });
