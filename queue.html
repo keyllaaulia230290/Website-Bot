@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queue GB Kill</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar">
+
+    <div class="nav-left">
+        <img src="logo.jpg/logobot.jpg" alt="Logo" class="logo-img">
+        <span class="brand-name">AjraStoreBOT</span>
+    </div>
+
+   <div class="nav-center">
+    <a href="index.html">Home</a>
+    <a href="botbank.html">Sewa Bot Bank</a>
+    <a href="gbkill.html">Jasa GB Kill</a>
+    <a href="queue.html">Antrian GB Kill</a>
+    <a href="gems.html">Kalkulator Gems</a>
+</div>
+
+    <div class="nav-right">
+        <a href="https://wa.me/6285885385659" class="nav-btn">
+            Order Sekarang
+        </a>
+    </div>
+
+    <div class="menu-btn" id="menuBtn">☰</div>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+
+    <a href="index.html">Home</a>
+    <a href="botbank.html">Sewa Bot Bank</a>
+    <a href="gbkill.html">Jasa GB Kill</a>
+    <a href="queue.html">Antrian GB Kill</a>
+    <a href="gems.html">Kalkulator Gems</a>
+
+    <a href="https://wa.me/6285885385659" class="mobile-wa">
+        Order Sekarang
+    </a>
+
+</div>
+
+</nav>
+
+<section class="queue-section">
+
+    <div class="section-top">
+        <span class="section-badge">📋 Queue</span>
+        <h2>Antrian GB Kill</h2>
+    </div>
+
+    <div class="queue-stats"></div>
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search Order ID / Username"
+        class="search-bar"
+    />
+
+    <div class="queue-tabs">
+        <button class="tab-btn active" data-tab="pending">Pending</button>
+        <button class="tab-btn" data-tab="processing">Processing</button>
+        <button class="tab-btn" data-tab="done">Done</button>
+    </div>
+
+    <div id="queueList"></div>
+
+    <div class="pagination">
+        <button id="prevBtn">Prev</button>
+        <span id="pageInfo">1 / 1</span>
+        <button id="nextBtn">Next</button>
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

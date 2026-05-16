@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Queue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="queue-section">
+    <div class="section-top">
+        <span class="section-badge">⚙️ Admin Panel</span>
+        <h2>Manage Queue</h2>
+        <p>Tambah dan atur order queue.</p>
+    </div>
+
+    <div class="admin-form">
+        <input type="number" id="orderId" placeholder="Order ID">
+        <input type="text" id="orderText" placeholder="Order Detail">
+
+        <select id="orderStatus">
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="done">Done</option>
+        </select>
+
+        <button onclick="addOrder()">Tambah Order</button>
+        <button onclick="exportJSON()">Export JSON</button>
+    </div>
+
+    <div id="adminList"></div>
+</section>
+
+<script src="admin.js"></script>
+</body>
+</html>
